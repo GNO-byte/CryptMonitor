@@ -17,6 +17,7 @@
                 android:name="name" />
         </action>
     </fragment>
+
     <fragment
         android:id="@+id/cardFragment"
         android:name="com.gno.cryptmonitor.CardFragment"
