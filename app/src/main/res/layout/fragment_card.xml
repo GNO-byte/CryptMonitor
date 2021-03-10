@@ -62,7 +62,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
                 android:layout_weight="1"
-                android:text="price :"
+                android:text="@string/price"
                 android:textAppearance="?attr/textAppearanceHeadline6"
                 android:textSize="24sp"
                 app:layout_constraintEnd_toEndOf="@+id/room_card_phone_cmcrank_head"

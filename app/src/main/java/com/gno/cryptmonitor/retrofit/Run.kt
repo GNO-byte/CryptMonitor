@@ -5,8 +5,9 @@ import ru.gildor.coroutines.retrofit.awaitResult
 object Run {
 
     lateinit var mService: RetrofitServices
-    val key = "&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&"
+    val key = "" // TODO: Достать из loсal.properties
 
+    // FIXME: неиспользуемые методы подчищать
      suspend fun getData() {
 
          var call = Common.retrofitService.getDataList(key).awaitResult();

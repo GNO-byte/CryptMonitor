@@ -30,7 +30,7 @@ class TmdbViewModel : ViewModel() {
     fun getDate(){
         scope.launch {
 
-            var call = Common.retrofitService.getDataList(Run.key).awaitResult();
+            val call = Common.retrofitService.getDataList(Run.key).awaitResult();
             popularMoviesLiveData.postValue((call as Result.Ok).value.data)
 
         }
