@@ -1,21 +1,27 @@
-package com.gno.cryptmonitor
+package com.gno.cryptmonitor.list
 
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import com.gno.cryptmonitor.R
 import com.gno.cryptmonitor.retrofit.Data
 
-class CustomRecyclerAdapter(private val values: List<Data>,
-                            private val cellClickListener: (Int) -> Unit) :
+class CustomRecyclerAdapter(
+    private val values: List<Data>,
+    private val cellClickListener: (Int) -> Unit
+) :
     RecyclerView.Adapter<CustomRecyclerAdapter.MyViewHolder>() { // TODO: посмотреть ListAdapter
 
     override fun getItemCount() = values.size
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyViewHolder {
-        val itemView = LayoutInflater.from(parent.context).inflate(R.layout.recyclerview_item, parent, false)
-        return MyViewHolder(itemView)
+        val itemView =
+            LayoutInflater.from(parent.context).inflate(R.layout.recyclerview_item, parent, false)
+        return MyViewHolder(
+            itemView
+        )
     }
 
     override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
@@ -29,7 +35,7 @@ class CustomRecyclerAdapter(private val values: List<Data>,
         var nameTextView: TextView? = null
 
         init {
-            nameTextView = itemView?.findViewById(R.id.recyclerview_item_name)
+            nameTextView = itemView.findViewById(R.id.recyclerview_item_name)
 
         }
     }

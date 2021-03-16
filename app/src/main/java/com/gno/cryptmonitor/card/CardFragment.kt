@@ -1,22 +1,25 @@
-package com.gno.cryptmonitor
+package com.gno.cryptmonitor.card
 
 import android.os.Bundle
 import android.view.View
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProvider
+import com.gno.cryptmonitor.MyApp
+import com.gno.cryptmonitor.R
 import kotlinx.android.synthetic.main.fragment_card.*
+import javax.inject.Inject
 
 class CardFragment : Fragment(R.layout.fragment_card) {
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        // FIXME: переопределять не надо
-        super.onViewCreated(view, savedInstanceState)
+    lateinit var cardViewModel: CardViewModel
+        @Inject set
 
-        val tmdbViewModel = ViewModelProvider(requireActivity()).get(TmdbViewModel::class.java)
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        MyApp.appComponent.inject(this)
+
         val index = arguments?.getInt("index")
 
-        tmdbViewModel.popularMoviesLiveData.observe(viewLifecycleOwner, Observer {
+        cardViewModel.popularMoviesLiveData.observe(viewLifecycleOwner, Observer {
 
             val data = it[index!!]
 

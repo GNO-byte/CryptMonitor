@@ -5,14 +5,12 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".CardFragment">
-
+    tools:context=".card.CardFragment">
 
     <androidx.cardview.widget.CardView
         android:id="@+id/fragment_card_cardview"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-   >
+        android:layout_height="match_parent">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
@@ -92,7 +90,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
                 android:layout_weight="1"
-                android:text="cmc-rank :"
+                android:text="@string/cmc_rank"
                 android:textAppearance="?attr/textAppearanceHeadline6"
                 android:textSize="24sp"
                 app:layout_constraintStart_toStartOf="parent"
