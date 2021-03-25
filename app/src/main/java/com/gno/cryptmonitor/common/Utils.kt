@@ -1,4 +1,4 @@
-package com.gno.cryptmonitor
+package com.gno.cryptmonitor.common
 
 import android.app.Application
 

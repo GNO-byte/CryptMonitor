@@ -1,8 +1,8 @@
 package com.gno.cryptmonitor.di
 
 import androidx.lifecycle.ViewModelProvider
-import com.gno.cryptmonitor.MainActivity
 import com.gno.cryptmonitor.card.CardViewModel
+import com.gno.cryptmonitor.common.MainActivity
 import com.gno.cryptmonitor.list.ListViewModel
 import com.gno.cryptmonitor.retrofit.Api
 import com.gno.cryptmonitor.retrofit.RetrofitServices
@@ -41,6 +41,5 @@ class AppModule(private val activity: MainActivity) {
             .addConverterFactory(GsonConverterFactory.create())
             .build()
     }
-
 
 }
