@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/listFragment"
-        android:name="com.gno.cryptmonitor.ListFragment"
+        android:name="com.gno.cryptmonitor.list.ListFragment"
         android:label="fragment_list"
         tools:layout="@layout/fragment_list" >
         <action
@@ -20,7 +20,7 @@
 
     <fragment
         android:id="@+id/cardFragment"
-        android:name="com.gno.cryptmonitor.CardFragment"
+        android:name="com.gno.cryptmonitor.card.CardFragment"
         android:label="fragment_card"
         tools:layout="@layout/fragment_card" >
         <argument
