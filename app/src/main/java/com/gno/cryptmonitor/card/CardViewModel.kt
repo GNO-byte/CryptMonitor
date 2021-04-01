@@ -5,7 +5,7 @@ import com.gno.cryptmonitor.common.BaseViewModel
 import com.gno.cryptmonitor.retrofit.Api
 import kotlinx.coroutines.launch
 
-class CardViewModel(application: Application) : BaseViewModel(application) {
+class CardViewModel() : BaseViewModel() {
 
     fun getData(key: String, index: Int) {
         scope.launch {
