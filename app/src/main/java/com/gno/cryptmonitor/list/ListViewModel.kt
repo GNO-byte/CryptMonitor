@@ -7,7 +7,7 @@ import com.gno.cryptmonitor.retrofit.Data
 import kotlinx.coroutines.launch
 
 
-class ListViewModel(application: Application) : BaseViewModel(application) {
+class ListViewModel : BaseViewModel() {
 
     private var commonListData = ArrayList<Data>()
 
