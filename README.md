@@ -8,9 +8,9 @@ Make sure to add YOUR API KEY in the local.properties
 api.key="xxxxx-xxxxx"
 
 ### Technologies
-Retrofit
-Coroutines
-ViewModel
-LiveData
-Navigation
+Retrofit  
+Coroutines  
+ViewModel  
+LiveData  
+Navigation  
 Dagger2
