@@ -25,8 +25,10 @@ class ListFragment : Fragment(R.layout.fragment_list) {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         MyApp.appComponent.inject(this)
 
-        listViewModel.loadData(Utils.getKey(context?.applicationContext as Application), true)
-
+        context?.let{
+            listViewModel.loadData(Utils.getKey(it.applicationContext as Application), true)
+        }
+        
         initRecyclerVIew()
 
         listViewModel.listDataLiveData.observe(viewLifecycleOwner) {
@@ -46,10 +48,13 @@ class ListFragment : Fragment(R.layout.fragment_list) {
                     (recyclerView.layoutManager as LinearLayoutManager).findFirstVisibleItemPosition()
 
                 if (totalItemCount != 0 && (visibleItemCount + firstVisibleItems) >= totalItemCount - visibleItemCount) {
-                    listViewModel.loadData(
-                        Utils.getKey(context?.applicationContext as Application),
-                        false
-                    )
+                    context?.let {
+                        listViewModel.loadData(
+                            Utils.getKey(it.applicationContext as Application),
+                            false
+                        )
+                    }
+
                 }
 
             }

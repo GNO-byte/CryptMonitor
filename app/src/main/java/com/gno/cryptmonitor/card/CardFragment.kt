@@ -18,8 +18,12 @@ class CardFragment : Fragment(R.layout.fragment_card) {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         MyApp.appComponent.inject(this)
 
-        val index = arguments?.getInt("index")
-        cardViewModel.getData(Utils.getKey(context?.applicationContext as Application), index!!)
+        arguments?.let { bundle ->
+            val index = bundle.getInt("index")
+            context?.let {
+                cardViewModel.getData(Utils.getKey(it.applicationContext as Application), index)
+            }
+        }
 
         cardViewModel.currentDataLiveData.observe(viewLifecycleOwner) {
 
