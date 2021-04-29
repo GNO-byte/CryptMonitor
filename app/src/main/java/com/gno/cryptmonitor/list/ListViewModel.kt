@@ -15,28 +15,29 @@ class ListViewModel : BaseViewModel() {
 
     fun loadData(key: String, firstLoad: Boolean) {
         scope.launch {
-            val commonListData: ArrayList<Data> =
-                (listDataLiveData.value ?: ArrayList()) as ArrayList<Data>
-            if (!isLoading && (commonListData.isEmpty() || !firstLoad))
+
+            val commonListData =  ArrayList<Data>()
+            commonListData.addAll(listDataLiveData.value ?: ArrayList())
+
+            if (!isLoading && (commonListData.isEmpty() || !firstLoad)) {
                 isLoading = true
-            try {
-                val answer =
-                    Api.retrofitService.getDataList(
-                        key,
-                        Api.DEFAULT_LIMIT,
-                        commonListData.size + 1
-                    )
-                commonListData.addAll(answer.data)
-                listDataLiveData.postValue(commonListData.toList())
-            } catch (e: Exception) {
-                Log.e(ListViewModel::class.qualifiedName, e.message, e)
+                try {
+                    val answer =
+                        Api.retrofitService.getDataList(
+                            key,
+                            Api.DEFAULT_LIMIT,
+                            commonListData.size + 1
+                        )
+                    commonListData.addAll(answer.data)
+                    listDataLiveData.postValue(commonListData.toList())
+                } catch (e: Exception) {
+                    Log.e(ListViewModel::class.qualifiedName, e.message, e)
+                }
+                isLoading = false
+
             }
-            isLoading = false
-
         }
+
     }
-
-
 }
-
 
