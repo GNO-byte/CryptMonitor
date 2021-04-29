@@ -5,7 +5,6 @@ import android.os.Bundle
 import android.view.View
 import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -26,13 +25,13 @@ class ListFragment : Fragment(R.layout.fragment_list) {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         MyApp.appComponent.inject(this)
 
-        listViewModel.getData(Utils.getKey(context?.applicationContext as Application))
+        listViewModel.loadData(Utils.getKey(context?.applicationContext as Application), true)
 
         initRecyclerVIew()
 
-        listViewModel.popularMoviesLiveData.observe(viewLifecycleOwner, Observer {
+        listViewModel.listDataLiveData.observe(viewLifecycleOwner) {
             customRecyclerAdapter.submitList(it)
-        })
+        }
     }
 
     private fun initRecyclerVIew() {
@@ -41,14 +40,18 @@ class ListFragment : Fragment(R.layout.fragment_list) {
             RecyclerView.OnScrollListener() {
             override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
                 val visibleItemCount =
-                    recyclerView.layoutManager?.childCount
-                val totalItemCount = recyclerView.layoutManager?.itemCount
+                    recyclerView.layoutManager?.childCount ?: 0
+                val totalItemCount = recyclerView.layoutManager?.itemCount ?: 0
                 val firstVisibleItems =
                     (recyclerView.layoutManager as LinearLayoutManager).findFirstVisibleItemPosition()
 
-                if ((visibleItemCount!! + firstVisibleItems) >= totalItemCount!!) {
-                    listViewModel.getData(Utils.getKey(context?.applicationContext as Application))
+                if (totalItemCount != 0 && (visibleItemCount + firstVisibleItems) >= totalItemCount - visibleItemCount) {
+                    listViewModel.loadData(
+                        Utils.getKey(context?.applicationContext as Application),
+                        false
+                    )
                 }
+
             }
         }
 

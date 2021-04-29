@@ -1,6 +1,7 @@
 package com.gno.cryptmonitor.list
 
-import android.app.Application
+import android.util.Log
+import androidx.lifecycle.MutableLiveData
 import com.gno.cryptmonitor.common.BaseViewModel
 import com.gno.cryptmonitor.retrofit.Api
 import com.gno.cryptmonitor.retrofit.Data
@@ -9,19 +10,32 @@ import kotlinx.coroutines.launch
 
 class ListViewModel : BaseViewModel() {
 
-    private var commonListData = ArrayList<Data>()
+    val listDataLiveData = MutableLiveData<List<Data>>()
+    private var isLoading = false
 
-    fun getData(key: String) {
+    fun loadData(key: String, firstLoad: Boolean) {
         scope.launch {
-            val answer =
-                Api.retrofitService.getDataList(key, Api.DEFAULT_LIMIT, commonListData.size + 1)
+            val commonListData: ArrayList<Data> =
+                (listDataLiveData.value ?: ArrayList()) as ArrayList<Data>
+            if (!isLoading && (commonListData.isEmpty() || !firstLoad))
+                isLoading = true
+            try {
+                val answer =
+                    Api.retrofitService.getDataList(
+                        key,
+                        Api.DEFAULT_LIMIT,
+                        commonListData.size + 1
+                    )
+                commonListData.addAll(answer.data)
+                listDataLiveData.postValue(commonListData.toList())
+            } catch (e: Exception) {
+                Log.e(ListViewModel::class.qualifiedName, e.message, e)
+            }
+            isLoading = false
 
-            commonListData.addAll(answer.data)
-            var newListData: ArrayList<Data> = ArrayList(commonListData)
-
-            popularMoviesLiveData.postValue(newListData)
         }
     }
+
 
 }
 

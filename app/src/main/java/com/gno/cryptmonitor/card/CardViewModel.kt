@@ -1,19 +1,33 @@
 package com.gno.cryptmonitor.card
 
-import android.app.Application
+import android.util.Log
+import androidx.lifecycle.MutableLiveData
 import com.gno.cryptmonitor.common.BaseViewModel
 import com.gno.cryptmonitor.retrofit.Api
+import com.gno.cryptmonitor.retrofit.Data
 import kotlinx.coroutines.launch
 
-class CardViewModel() : BaseViewModel() {
+class CardViewModel : BaseViewModel() {
+
+    private var latestIndex = -1
+    private var isLoading = false
+    val currentDataLiveData = MutableLiveData<Data>()
 
     fun getData(key: String, index: Int) {
         scope.launch {
-            val answer = Api.retrofitService.getDataList(key, 1, index + 1)
-            popularMoviesLiveData.postValue(answer.data)
+            if (!isLoading && latestIndex != index) {
+                isLoading = true
+                try {
+                    val answer = Api.retrofitService.getDataList(key, 1, index + 1)
+                    currentDataLiveData.postValue(answer.data[0])
+                    latestIndex = index
+                } catch (e: Exception) {
+                    Log.e(CardViewModel::class.qualifiedName, e.message, e)
+                }
+                isLoading = false
+            }
         }
+
     }
 
 }
-
-

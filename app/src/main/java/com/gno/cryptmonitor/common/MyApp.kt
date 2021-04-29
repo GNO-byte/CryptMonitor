@@ -10,5 +10,4 @@ class MyApp : Application() {
         lateinit var appComponent: AppComponent
     }
 
-
 }
