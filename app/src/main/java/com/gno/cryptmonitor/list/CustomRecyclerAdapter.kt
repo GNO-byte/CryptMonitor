@@ -9,11 +9,6 @@ import androidx.recyclerview.widget.RecyclerView
 import com.gno.cryptmonitor.R
 import com.gno.cryptmonitor.retrofit.Data
 
-//class CustomRecyclerAdapter(
-//    private val values: List<Data>,
-//    private val cellClickListener: (Int) -> Unit
-//) :
-
 class CustomRecyclerAdapter(
     private val cellClickListener: (Int) -> Unit
 ) : ListAdapter<Data, CustomRecyclerAdapter.DataHolder>(DataItemDiffUtilCallback()) {
@@ -34,19 +29,15 @@ class CustomRecyclerAdapter(
 
     override fun onBindViewHolder(holder: DataHolder, position: Int) {
 
-        holder.nameTextView?.text = getItem(position).name
-        holder.nameTextView?.setOnClickListener {
+        holder.nameTextView.text = getItem(position).name
+        holder.nameTextView.setOnClickListener {
             cellClickListener.invoke(position)
         }
 
     }
 
     class DataHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        var nameTextView: TextView? = null
-
-        init {
-            nameTextView = itemView.findViewById(R.id.recyclerview_item_name)
-        }
+        val nameTextView: TextView = itemView.findViewById(R.id.recyclerview_item_name)
     }
 
 }
