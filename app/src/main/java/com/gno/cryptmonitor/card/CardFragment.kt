@@ -26,12 +26,17 @@ class CardFragment : Fragment(R.layout.fragment_card) {
         }
 
         cardViewModel.currentDataLiveData.observe(viewLifecycleOwner) {
-
-            fragment_card_symbol.text = it.symbol
-            fragment_card_name.text = it.name
-            room_card_phone_cmcrank_value.text = it.cmc_rank.toString()
-            room_card_phone_price_value.text = it.quote.USD.price.toString()
-
+            it?.let {
+                fragment_card_symbol.text = it.symbol
+                fragment_card_name.text = it.name
+                room_card_phone_cmcrank_value.text = it.cmc_rank.toString()
+                room_card_phone_price_value.text = it.quote.USD.price.toString()
+            } ?: run {
+                fragment_card_symbol.text = ""
+                fragment_card_name.text = ""
+                room_card_phone_cmcrank_value.text = ""
+                room_card_phone_price_value.text = ""
+            }
         }
     }
 }

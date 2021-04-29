@@ -30,5 +30,3 @@ data class Quote(
 data class USD(
     val price: Double
 )
-
-fun createEmptyData (): Data = Data("", "", 0, 0.0F, Quote(USD(0.0)))
